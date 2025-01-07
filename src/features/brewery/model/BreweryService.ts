@@ -1,8 +1,7 @@
-import axios from 'axios';
-
-const BASE_URL = 'https://api.openbrewerydb.org/breweries';
-
 export const fetchBreweries = async (page: number, perPage: number) => {
-  const response = await axios.get(`${BASE_URL}?per_page=${perPage}&page=${page}`);
-  return response.data;
+  const response = await fetch(
+    `https://api.openbrewerydb.org/breweries?page=${page}&per_page=${perPage}`
+  );
+  if (!response.ok) throw new Error('Failed to fetch breweries');
+  return response.json();
 };
