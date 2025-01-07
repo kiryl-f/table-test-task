@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom'; 
+import { useSearchParams } from 'react-router-dom';
 import { Table } from '../../../shared/ui/Table';
-import { fetchBreweries } from '../model/BreweryService';
+import { fetchBreweries } from '../api/breweryService';
 import styles from '../../../styles/components/BreweryTable.module.scss';
+import { Filters } from './Filters';
+import { Pagination } from './Pagination';
 
 export type Brewery = {
   id: string;
@@ -107,51 +109,15 @@ const BreweryTable: React.FC = () => {
     }
   };
 
-  const handleFilterChange = (filterType: 'type' | 'search', value: string) => {
-    setFilters((prev) => ({ ...prev, [filterType]: value }));
-    setPage(1);
-  };
-
   return (
-    <div>
-      <div className={styles.filters}>
-        <select
-          value={filters.type}
-          onChange={(e) => handleFilterChange('type', e.target.value)}
-        >
-          <option value="">All Types</option>
-          <option value="micro">Micro</option>
-          <option value="nano">Nano</option>
-          <option value="regional">Regional</option>
-          <option value="brewpub">Brewpub</option>
-        </select>
-        <input
-          type="text"
-          placeholder="Search by name or city"
-          value={filters.search}
-          onChange={(e) => handleFilterChange('search', e.target.value)}
-        />
-      </div>
+    <div className={styles.tableContainer}>
+      <Filters filters={filters} setFilters={setFilters} setPage={setPage} />
       {loading ? (
-        <p>Loading...</p>
+        <p className={styles.loading}>Loading...</p>
       ) : (
         <>
           <Table data={data} columns={columns} />
-          <div className={styles.pagination}>
-            <button
-              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-              disabled={page === 1}
-            >
-              Previous
-            </button>
-            <span>Page {page}</span>
-            <button
-              onClick={() => setPage((prev) => prev + 1)}
-              disabled={data.length < perPage}
-            >
-              Next
-            </button>
-          </div>
+          <Pagination page={page} setPage={setPage} dataLength={data.length} perPage={perPage} />
         </>
       )}
     </div>
