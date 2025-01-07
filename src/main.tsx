@@ -3,8 +3,12 @@ import { createRoot } from 'react-dom/client'
 import './styles/globals.scss'
 import App from './App.tsx'
 
+import { MemoryRouter } from 'react-router-dom';
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
   </StrictMode>,
 )

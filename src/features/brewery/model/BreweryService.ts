@@ -9,6 +9,7 @@ export const fetchBreweries = async (
 ): Promise<Brewery[]> => {
   let url = `https://api.openbrewerydb.org/v1/breweries?per_page=${perPage}&page=${page}`;
 
+  console.log('url: ', url);
   if (filters?.type) {
     url += `&by_type=${filters.type}`;
   }

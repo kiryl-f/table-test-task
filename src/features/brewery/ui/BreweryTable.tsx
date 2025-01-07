@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom'; 
 import { Table } from '../../../shared/ui/Table';
 import { fetchBreweries } from '../model/BreweryService';
 import styles from '../../../styles/components/BreweryTable.module.scss';
@@ -19,6 +20,49 @@ const BreweryTable: React.FC = () => {
   const [filters, setFilters] = useState({ type: '', search: '' });
   const [sortKey, setSortKey] = useState<keyof Brewery | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const saveStateToLocalStorage = () => {
+    localStorage.setItem(
+      'breweryTableState',
+      JSON.stringify({ page, filters, sortKey, sortOrder })
+    );
+  };
+
+  const loadStateFromLocalStorage = () => {
+    const savedState = localStorage.getItem('breweryTableState');
+    if (savedState) {
+      const { page, filters, sortKey, sortOrder } = JSON.parse(savedState);
+      setPage(page);
+      setFilters(filters);
+      setSortKey(sortKey);
+      setSortOrder(sortOrder);
+    }
+  };
+
+  const syncStateWithQueryParams = () => {
+    const params: Record<string, string> = {};
+    if (filters.type) params.type = filters.type;
+    if (filters.search) params.search = filters.search;
+    if (sortKey) params.sortKey = sortKey;
+    if (sortOrder) params.sortOrder = sortOrder;
+    params.page = String(page);
+    setSearchParams(params);
+  };
+
+  const loadStateFromQueryParams = () => {
+    const params = Object.fromEntries(searchParams.entries());
+    if (params.page) setPage(Number(params.page));
+    if (params.type) setFilters((prev) => ({ ...prev, type: params.type }));
+    if (params.search) setFilters((prev) => ({ ...prev, search: params.search }));
+    if (params.sortKey) setSortKey(params.sortKey as keyof Brewery);
+    if (params.sortOrder) setSortOrder(params.sortOrder as 'asc' | 'desc');
+  };
+
+  useEffect(() => {
+    loadStateFromLocalStorage();
+    loadStateFromQueryParams();
+  }, []);
 
   const loadBreweries = async () => {
     setLoading(true);
@@ -33,7 +77,9 @@ const BreweryTable: React.FC = () => {
 
   useEffect(() => {
     loadBreweries();
-  }, [page, perPage, filters, sortKey, sortOrder]);
+    saveStateToLocalStorage();
+    syncStateWithQueryParams();
+  }, [page, filters, sortKey, sortOrder]);
 
   const columns = [
     {
