@@ -1,0 +1,28 @@
+.typeFilter {
+    margin-bottom: 20px;
+  }
+  
+  .typeFilter h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .typeFilter label {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+  
+  .typeFilter input[type='checkbox'] {
+    margin-right: 8px;
+  }
+  
+  .typeFilter label span {
+    font-size: 1rem;
+  }
+  
+  .typeFilter input[type='checkbox']:checked {
+    background-color: #4caf50;
+  }
+  

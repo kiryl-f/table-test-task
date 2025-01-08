@@ -47,25 +47,32 @@ export const fetchBreweries = async (
     }
 
     const response = await fetch(`https://api.openbrewerydb.org/v1/breweries?${params.toString()}`);
+    console.log('fetching: ' + `https://api.openbrewerydb.org/v1/breweries?${params.toString()}`);
     if (!response.ok) {
       throw new Error('Failed to fetch breweries');
     }
     combinedResults = await response.json();
   }
 
-  // Filter by longitude and latitude ranges
   combinedResults = combinedResults.filter((brewery) => {
-    const { longitude, latitude } = brewery;
+    const longitude = parseFloat(brewery.longitude);
+    const latitude = parseFloat(brewery.latitude);
+  
+    // if (isNaN(longitude) || isNaN(latitude)) {
+    //   return false;
+    // }
+    
     const inLongitudeRange =
       (!filters.minLongitude || longitude >= filters.minLongitude) &&
       (!filters.maxLongitude || longitude <= filters.maxLongitude);
     const inLatitudeRange =
       (!filters.minLatitude || latitude >= filters.minLatitude) &&
       (!filters.maxLatitude || latitude <= filters.maxLatitude);
+  
     return inLongitudeRange && inLatitudeRange;
   });
+  
 
-  // Sorting
   if (sortKey) {
     combinedResults.sort((a, b) => {
         const valA = a[sortKey];

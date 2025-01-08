@@ -6,21 +6,25 @@ import styles from '../../../styles/components/BreweryTable.module.scss';
 import { Filters } from './Filters';
 import { Pagination } from './Pagination';
 
+import LatitudeFilter from './filters/LatitudeFilter';
+
 export type Brewery = {
   id: string;
   name: string;
   brewery_type: string;
   city: string;
   state: string;
-  longitude: number;
-  latitude: number;
+  longitude: string;
+  latitude: string;
 };
 
 const BreweryTable: React.FC = () => {
   const [data, setData] = useState<Brewery[]>([]);
+
+  console.log('breweries: ' + JSON.stringify(data).length);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [perPage] = useState(10);
+  const [perPage] = useState(20);
   const [filters, setFilters] = useState<{
     types: string[];
     search: string;
@@ -32,7 +36,7 @@ const BreweryTable: React.FC = () => {
     types: [],
     search: '',
   });
-  
+
   const [sortKey, setSortKey] = useState<keyof Brewery | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [searchParams, setSearchParams] = useSearchParams();
@@ -95,10 +99,33 @@ const BreweryTable: React.FC = () => {
     loadStateFromQueryParams();
   }, []);
 
+
+  const filterBreweriesByLocation = (breweries: Brewery[], filters: any) => {
+    return breweries.filter((brewery) => {
+      const longitude = parseFloat(brewery.longitude);
+      const latitude = parseFloat(brewery.latitude);
+
+      console.log('longitude: ' + longitude);
+
+      console.log('latiude: ' + latitude);
+
+      const isLongitudeInRange =
+        (filters.minLongitude === undefined || longitude >= filters.minLongitude) &&
+        (filters.maxLongitude === undefined || longitude <= filters.maxLongitude);
+
+      const isLatitudeInRange =
+        (filters.minLatitude === undefined || latitude >= filters.minLatitude) &&
+        (filters.maxLatitude === undefined || latitude <= filters.maxLatitude);
+
+      return isLongitudeInRange && isLatitudeInRange;
+    });
+  };
+
   const loadBreweries = async () => {
     setLoading(true);
     try {
-      const breweries = await fetchBreweries(page, perPage, filters, sortKey, sortOrder);
+      let breweries = await fetchBreweries(page, perPage, filters, sortKey!, sortOrder);
+      breweries = filterBreweriesByLocation(breweries, filters);
       setData(breweries);
     } catch (error) {
       console.error(error);
@@ -139,9 +166,25 @@ const BreweryTable: React.FC = () => {
     }
   };
 
+
+  const handleLatitudeFilter = (minLatitude: number | null, maxLatitude: number | null) => {
+    setFilters((prev) => ({
+      ...prev,
+      minLatitude: minLatitude ?? undefined,
+      maxLatitude: maxLatitude ?? undefined,
+    }));
+    setPage(1);
+  };
+
+
   return (
     <div className={styles.tableContainer}>
       <Filters filters={filters} setFilters={setFilters} setPage={setPage} />
+
+      <div className={styles.locationFilters}>
+        <LatitudeFilter onApplyFilter={handleLatitudeFilter} />
+      </div>
+
       {loading ? (
         <p className={styles.loading}>Loading...</p>
       ) : (
