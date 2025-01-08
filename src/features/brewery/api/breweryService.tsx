@@ -12,7 +12,6 @@ export const fetchBreweries = async (
     maxLatitude?: number;
   },
   sortKey: keyof Brewery | null,
-  sortOrder: 'asc' | 'desc'
 ) => {
   const fetchByType = async (type: string) => {
     const params = new URLSearchParams();
@@ -57,8 +56,6 @@ export const fetchBreweries = async (
   combinedResults = combinedResults.filter((brewery) => {
     const longitude = parseFloat(brewery.longitude);
     const latitude = parseFloat(brewery.latitude);
-  
-   
     
     const inLongitudeRange =
       (!filters.minLongitude || longitude >= filters.minLongitude) &&
@@ -69,18 +66,17 @@ export const fetchBreweries = async (
   
     return inLongitudeRange && inLatitudeRange;
   });
-  
 
   if (sortKey) {
     combinedResults.sort((a, b) => {
-        const valA = a[sortKey];
-        const valB = b[sortKey];
-        if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
-        if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
-        return 0;
-      });
-    }
-  
-    return combinedResults.slice(0, perPage);
-  };
-  
+      const valA = a[sortKey];
+      const valB = b[sortKey];
+
+      if (valA < valB) return -1;
+      if (valA > valB) return 1;
+      return 0;
+    });
+  }
+
+  return combinedResults.slice(0, perPage);
+};

@@ -6,9 +6,9 @@ import { Filters } from './Filters';
 import { Pagination } from './Pagination';
 import LatitudeFilter from './filters/LatitudeFilter';
 
-import { Brewery } from '../types';
 import useBreweryTableState from '../hooks/useBreweryTableState';
 import useBreweryLoader from '../hooks/useBreweryLoader';
+import { Brewery } from '../types';
 
 const BreweryTable: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -19,17 +19,14 @@ const BreweryTable: React.FC = () => {
     page,
     setPage,
     sortKey,
-    sortOrder,
     handleSort,
-    syncStateWithQueryParams,
   } = useBreweryTableState(searchParams);
 
-  const { data, loading, loadBreweries } = useBreweryLoader(page, filters, sortKey, sortOrder);
+  const { data, loading, loadBreweries } = useBreweryLoader(page, filters, sortKey);
 
   useEffect(() => {
     loadBreweries();
-    syncStateWithQueryParams();
-  }, [page, filters, sortKey, sortOrder]);
+  }, [page, filters, sortKey]);
 
   const handleLatitudeFilter = (minLatitude: number | null, maxLatitude: number | null) => {
     setFilters((prev) => ({
@@ -46,6 +43,7 @@ const BreweryTable: React.FC = () => {
     { key: 'city', title: 'City' },
     { key: 'state', title: 'State' },
   ];
+  
 
   return (
     <div className={styles.tableContainer}>
