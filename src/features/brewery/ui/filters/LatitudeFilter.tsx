@@ -17,20 +17,27 @@ const LatitudeFilter: React.FC<LatitudeFilterProps> = ({ onApplyFilter }) => {
   };
 
   return (
-    <div>
-      <input
-        type="number"
-        placeholder="Min Latitude"
-        value={minLatitude}
-        onChange={(e) => setMinLatitude(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Max Latitude"
-        value={maxLatitude}
-        onChange={(e) => setMaxLatitude(e.target.value)}
-      />
-      <button onClick={applyFilter}>Apply Latitude Filter</button>
+    <div className={styles.latitudeFilter}>
+      <h3>Latitude Filter</h3>
+      <div className={styles.latitudeRange}>
+        <input
+          type="number"
+          placeholder="Min Latitude"
+          value={minLatitude}
+          onChange={(e) => setMinLatitude(e.target.value)}
+          className={styles.input}
+        />
+        <input
+          type="number"
+          placeholder="Max Latitude"
+          value={maxLatitude}
+          onChange={(e) => setMaxLatitude(e.target.value)}
+          className={styles.input}
+        />
+      </div>
+      <button onClick={applyFilter} className={styles.applyButton}>
+        Apply Latitude Filter
+      </button>
     </div>
   );
 };
