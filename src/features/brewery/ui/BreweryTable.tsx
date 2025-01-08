@@ -24,7 +24,6 @@ const BreweryTable: React.FC = () => {
 
   const { data, loading, loadBreweries } = useBreweryLoader(page, filters, sortKey);
 
-
   useEffect(() => {
     loadBreweries();
   }, [page, filters, sortKey]);
@@ -50,9 +49,9 @@ const BreweryTable: React.FC = () => {
     <div className={styles.tableContainer}>
       <Filters filters={filters} setFilters={setFilters} setPage={setPage} />
 
-      <div className={styles.locationFilters}>
+      {/* <div className={styles.locationFilters}>
         <LatitudeFilter onApplyFilter={handleLatitudeFilter} />
-      </div>
+      </div> */}
 
       {loading ? (
         <p className={styles.loading}>Loading...</p>

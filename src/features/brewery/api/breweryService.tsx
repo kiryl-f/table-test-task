@@ -51,7 +51,6 @@ export const fetchBreweries = async (
     combinedResults = await response.json();
   }
 
-  // Now, apply only latitude filtering
   combinedResults = combinedResults.filter((brewery) => {
     const latitude = parseFloat(brewery.latitude);
     
@@ -59,10 +58,10 @@ export const fetchBreweries = async (
       (!filters.minLatitude || latitude >= filters.minLatitude) &&
       (!filters.maxLatitude || latitude <= filters.maxLatitude);
   
+    //console.log(`inLatitudeRange from ${filters.minLatitude} to ${filters.maxLatitude}: ` + brewery.name);
     return inLatitudeRange;
   });
 
-  // Apply sorting if needed
   if (sortKey) {
     combinedResults.sort((a, b) => {
       const valA = a[sortKey];
