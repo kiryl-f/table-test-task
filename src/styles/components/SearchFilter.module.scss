@@ -1,28 +1,33 @@
+@import '../variables';
+
+
 .searchFilter {
-    margin-bottom: 20px;
-  }
-  
-  .searchFilter h3 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .searchFilter input[type='text'] {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-top: 5px;
-  }
-  
-  .searchFilter input[type='text']:focus {
-    border-color: #83e9e4;
-    outline: none;
-  }
-  
-  .searchFilter input[type='text']::placeholder {
-    color: #888;
-  }
-  
+  margin-bottom: 20px;
+}
+
+.searchFilter h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: $text-color;
+}
+
+.searchFilter input[type='text'] {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  margin-top: 5px;
+  background-color: $background-color;
+  color: $text-color;
+}
+
+.searchFilter input[type='text']:focus {
+  border-color: $accent-color;
+  outline: none;
+}
+
+.searchFilter input[type='text']::placeholder {
+  color: #888;
+}

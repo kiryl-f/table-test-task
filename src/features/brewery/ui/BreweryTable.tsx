@@ -4,7 +4,7 @@ import { Table } from '../../../shared/ui/Table';
 import styles from '../../../styles/components/BreweryTable.module.scss';
 import { Filters } from './Filters';
 import { Pagination } from './Pagination';
-import LatitudeFilter from './filters/LatitudeFilter';
+// import LatitudeFilter from './filters/LatitudeFilter';
 
 import useBreweryTableState from '../hooks/useBreweryTableState';
 import useBreweryLoader from '../hooks/useBreweryLoader';
@@ -28,14 +28,14 @@ const BreweryTable: React.FC = () => {
     loadBreweries();
   }, [page, filters, sortKey]);
 
-  const handleLatitudeFilter = (minLatitude: number | null, maxLatitude: number | null) => {
-    setFilters((prev) => ({
-      ...prev,
-      minLatitude: minLatitude ?? undefined,
-      maxLatitude: maxLatitude ?? undefined,
-    }));
-    setPage(1);
-  };
+  // const handleLatitudeFilter = (minLatitude: number | null, maxLatitude: number | null) => {
+  //   setFilters((prev) => ({
+  //     ...prev,
+  //     minLatitude: minLatitude ?? undefined,
+  //     maxLatitude: maxLatitude ?? undefined,
+  //   }));
+  //   setPage(1);
+  // };
 
   const columns: { key: keyof Brewery; title: string; sortable?: boolean; onSort?: () => void }[] = [
     { key: 'name', title: 'Name', sortable: true, onSort: () => handleSort('name') },
