@@ -1,4 +1,4 @@
-import styles from '../../styles/components/Table.module.scss';
+import styles from './Table.module.scss';
 
 type TableProps<T> = {
   data: T[];

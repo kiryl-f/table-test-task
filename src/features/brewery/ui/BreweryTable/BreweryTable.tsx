@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Table } from '../../../shared/ui/Table';
-import styles from '../../../styles/components/BreweryTable.module.scss';
-import { Filters } from './Filters';
-import { Pagination } from './Pagination';
+import styles from './BreweryTable.module.scss';
+
 // import LatitudeFilter from './filters/LatitudeFilter';
 
-import useBreweryTableState from '../hooks/useBreweryTableState';
-import useBreweryLoader from '../hooks/useBreweryLoader';
-import { Brewery } from '../types';
+import { Table } from '../../../../shared/ui/Table/Table';
+import { Filters } from '../Filters';
+import { Pagination } from '../Pagination/Pagination';
+import { Brewery } from '../../types';
+import useBreweryTableState from '../../hooks/useBreweryTableState';
+import useBreweryLoader from '../../hooks/useBreweryLoader';
 
 const BreweryTable: React.FC = () => {
   const [searchParams] = useSearchParams();

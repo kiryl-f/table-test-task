@@ -1,5 +1,6 @@
 import React from 'react';
-import BreweryTable from './features/brewery/ui/BreweryTable';
+import BreweryTable from './features/brewery/ui/BreweryTable/BreweryTable';
+
 
 const App: React.FC = () => {
   return (

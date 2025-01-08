@@ -1,7 +1,8 @@
 import React from 'react';
-import styles from '../../../styles/components/Filters.module.scss';
-import { TypeFilter } from './filters/TypeFilter';
-import { SearchFilter } from './filters/SearchFilter';
+import styles from './Filters.module.scss';
+import { TypeFilter } from './Filters/TypeFilter';
+import { SearchFilter } from './Filters/SearchFilter';
+
 
 type FiltersProps = {
   filters: {

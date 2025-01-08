@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../../../styles/components/TypeFilter.module.scss';
+import styles from './TypeFilter.module.scss';
 
 type TypeFilterProps = {
   types: string[];

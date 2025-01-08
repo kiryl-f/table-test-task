@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../../styles/components/Pagination.module.scss';
+import styles from './Pagination.module.scss';
 
 type PaginationProps = {
   page: number;
