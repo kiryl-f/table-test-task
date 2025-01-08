@@ -16,3 +16,7 @@ A React + TypeScript project for displaying and filtering brewery data from the 
 
 2. Open your browser and go to:
    http://localhost:5173
+
+
+The project is avaliable on:
+https://table-test-task-mu.vercel.app/
