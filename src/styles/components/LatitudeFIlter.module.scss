@@ -1,0 +1,50 @@
+.latitudeFilter {
+    margin-bottom: 20px;
+  }
+  
+  .latitudeFilter h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .latitudeFilter label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .latitudeFilter input[type='number'] {
+    width: 150px;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .latitudeFilter input[type='number']:focus {
+    border-color: #4caf50;
+    outline: none;
+  }
+  
+  .latitudeFilter input[type='number']::placeholder {
+    color: #888;
+  }
+  
+  .latitudeFilter .rangeLabel {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .latitudeFilter .latitudeRange {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .latitudeFilter .latitudeRange span {
+    font-size: 0.875rem;
+    color: #888;
+  }
+  

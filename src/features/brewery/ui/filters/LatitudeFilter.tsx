@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import styles from '../../../../styles/components/LatitudeFIlter.module.scss';
+
 type LatitudeFilterProps = {
   onApplyFilter: (minLatitude: number | null, maxLatitude: number | null) => void;
 };
