@@ -1,4 +1,4 @@
-import { Brewery } from "../ui/BreweryTable";
+import { Brewery } from "../types";
 
 export const fetchBreweries = async (
   page: number,
@@ -58,9 +58,7 @@ export const fetchBreweries = async (
     const longitude = parseFloat(brewery.longitude);
     const latitude = parseFloat(brewery.latitude);
   
-    // if (isNaN(longitude) || isNaN(latitude)) {
-    //   return false;
-    // }
+   
     
     const inLongitudeRange =
       (!filters.minLongitude || longitude >= filters.minLongitude) &&

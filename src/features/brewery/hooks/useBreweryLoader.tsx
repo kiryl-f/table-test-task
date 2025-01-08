@@ -2,7 +2,12 @@ import { useState } from 'react';
 import { fetchBreweries } from '../api/breweryService';
 import { Brewery } from '../types';
 
-const useBreweryLoader = (page: number, filters: any, sortKey: keyof Brewery | null, sortOrder: 'asc' | 'desc') => {
+const useBreweryLoader = (
+  page: number,
+  filters: any,
+  sortKey: keyof Brewery | null,
+  sortOrder: 'asc' | 'desc'
+) => {
   const [data, setData] = useState<Brewery[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,4 +25,4 @@ const useBreweryLoader = (page: number, filters: any, sortKey: keyof Brewery | n
   return { data, loading, loadBreweries };
 };
 
-export default useBreweryLoader;
+export default useBreweryLoader; 

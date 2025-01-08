@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Table } from '../../../shared/ui/Table';
 import styles from '../../../styles/components/BreweryTable.module.scss';
