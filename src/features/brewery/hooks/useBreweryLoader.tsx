@@ -9,7 +9,7 @@ const useBreweryLoader = (page: number, filters: any, sortKey: keyof Brewery | n
   const loadBreweries = async () => {
     setLoading(true);
     try {
-      let breweries = await fetchBreweries(page, 20, filters, sortKey);
+      let breweries = await fetchBreweries(page, 50, filters, sortKey);
       setData(breweries);
     } catch (error) {
       console.error(error);
