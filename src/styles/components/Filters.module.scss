@@ -1,32 +1,23 @@
 .filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.typeFilter {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  label {
     display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
+    align-items: center;
+    gap: 5px;
   }
-  
-  .filters select,
-  .filters input {
-    padding: 8px 12px;
-    font-size: 1rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    outline: none;
-  }
-  
-  .filters select:focus,
-  .filters input:focus {
-    border-color: #007bff;
-  }
-  
-  .filters input {
-    width: 200px;
-  }
-  
-  .filters select {
-    width: 150px;
-  }
-  
-  .filters input::placeholder {
-    color: #888;
-  }
-  
+}
+
+input[type="text"] {
+  padding: 5px;
+  margin-top: 10px;
+  width: 100%;
+}

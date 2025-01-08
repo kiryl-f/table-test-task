@@ -12,6 +12,8 @@ export type Brewery = {
   brewery_type: string;
   city: string;
   state: string;
+  longitude: number;
+  latitude: number;
 };
 
 const BreweryTable: React.FC = () => {
@@ -19,7 +21,18 @@ const BreweryTable: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [perPage] = useState(10);
-  const [filters, setFilters] = useState({ type: '', search: '' });
+  const [filters, setFilters] = useState<{
+    types: string[];
+    search: string;
+    minLongitude?: number;
+    maxLongitude?: number;
+    minLatitude?: number;
+    maxLatitude?: number;
+  }>({
+    types: [],
+    search: '',
+  });
+  
   const [sortKey, setSortKey] = useState<keyof Brewery | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [searchParams, setSearchParams] = useSearchParams();
@@ -44,8 +57,16 @@ const BreweryTable: React.FC = () => {
 
   const syncStateWithQueryParams = () => {
     const params: Record<string, string> = {};
-    if (filters.type) params.type = filters.type;
+    if (filters.types.length > 0) params.type = filters.types.join(',');
     if (filters.search) params.search = filters.search;
+    if (filters.minLongitude !== undefined)
+      params.minLongitude = filters.minLongitude.toString();
+    if (filters.maxLongitude !== undefined)
+      params.maxLongitude = filters.maxLongitude.toString();
+    if (filters.minLatitude !== undefined)
+      params.minLatitude = filters.minLatitude.toString();
+    if (filters.maxLatitude !== undefined)
+      params.maxLatitude = filters.maxLatitude.toString();
     if (sortKey) params.sortKey = sortKey;
     if (sortOrder) params.sortOrder = sortOrder;
     params.page = String(page);
@@ -55,8 +76,16 @@ const BreweryTable: React.FC = () => {
   const loadStateFromQueryParams = () => {
     const params = Object.fromEntries(searchParams.entries());
     if (params.page) setPage(Number(params.page));
-    if (params.type) setFilters((prev) => ({ ...prev, type: params.type }));
+    if (params.type) setFilters((prev) => ({ ...prev, types: params.type.split(',') }));
     if (params.search) setFilters((prev) => ({ ...prev, search: params.search }));
+    if (params.minLongitude)
+      setFilters((prev) => ({ ...prev, minLongitude: Number(params.minLongitude) }));
+    if (params.maxLongitude)
+      setFilters((prev) => ({ ...prev, maxLongitude: Number(params.maxLongitude) }));
+    if (params.minLatitude)
+      setFilters((prev) => ({ ...prev, minLatitude: Number(params.minLatitude) }));
+    if (params.maxLatitude)
+      setFilters((prev) => ({ ...prev, maxLatitude: Number(params.maxLatitude) }));
     if (params.sortKey) setSortKey(params.sortKey as keyof Brewery);
     if (params.sortOrder) setSortOrder(params.sortOrder as 'asc' | 'desc');
   };
@@ -69,7 +98,7 @@ const BreweryTable: React.FC = () => {
   const loadBreweries = async () => {
     setLoading(true);
     try {
-      const breweries = await fetchBreweries(page, perPage, filters, sortKey!, sortOrder);
+      const breweries = await fetchBreweries(page, perPage, filters, sortKey, sortOrder);
       setData(breweries);
     } catch (error) {
       console.error(error);
@@ -83,22 +112,23 @@ const BreweryTable: React.FC = () => {
     syncStateWithQueryParams();
   }, [page, filters, sortKey, sortOrder]);
 
-  const columns = [
-    {
-      key: 'name',
-      title: 'Name',
-      sortable: true,
-      onSort: () => handleSort('name'),
-    },
-    {
-      key: 'brewery_type',
-      title: 'Type',
-      sortable: true,
-      onSort: () => handleSort('brewery_type'),
-    },
-    { key: 'city', title: 'City' },
-    { key: 'state', title: 'State' },
-  ] as { key: keyof Brewery; title: string; sortable?: boolean; onSort?: () => void }[];
+  const columns: { key: keyof Brewery; title: string; sortable?: boolean; onSort?: () => void }[] =
+    [
+      {
+        key: 'name',
+        title: 'Name',
+        sortable: true,
+        onSort: () => handleSort('name'),
+      },
+      {
+        key: 'brewery_type',
+        title: 'Type',
+        sortable: true,
+        onSort: () => handleSort('brewery_type'),
+      },
+      { key: 'city', title: 'City' },
+      { key: 'state', title: 'State' },
+    ];
 
   const handleSort = (key: keyof Brewery) => {
     if (sortKey === key) {
