@@ -24,6 +24,7 @@ const BreweryTable: React.FC = () => {
 
   const { data, loading, loadBreweries } = useBreweryLoader(page, filters, sortKey);
 
+
   useEffect(() => {
     loadBreweries();
   }, [page, filters, sortKey]);

@@ -20,4 +20,4 @@ const useBreweryLoader = (page: number, filters: any, sortKey: keyof Brewery | n
   return { data, loading, loadBreweries };
 };
 
-export default useBreweryLoader; 
+export default useBreweryLoader;

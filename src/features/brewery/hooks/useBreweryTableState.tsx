@@ -15,16 +15,14 @@ const useBreweryTableState = (searchParams: URLSearchParams = new URLSearchParam
   });
   const [page, setPage] = useState(1);
   const [sortKey, setSortKey] = useState<keyof Brewery | null>(null);
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (savedState) {
-      const { page, filters, sortKey, sortOrder } = JSON.parse(savedState);
+      const { page, filters, sortKey } = JSON.parse(savedState);
       setPage(page || 1);
       setFilters(filters || {});
       setSortKey(sortKey || null);
-      setSortOrder(sortOrder || 'asc');
     }
   }, []);
 
@@ -38,20 +36,18 @@ const useBreweryTableState = (searchParams: URLSearchParams = new URLSearchParam
     if (params.maxLatitude)
       setFilters((prev) => ({ ...prev, maxLatitude: Number(params.maxLatitude) }));
     if (params.sortKey) setSortKey(params.sortKey as keyof Brewery);
-    if (params.sortOrder) setSortOrder(params.sortOrder as 'asc' | 'desc');
   };
 
   useEffect(() => {
-    const stateToSave = { page, filters, sortKey, sortOrder };
+    const stateToSave = { page, filters, sortKey };
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(stateToSave));
-  }, [page, filters, sortKey, sortOrder]);
+  }, [page, filters, sortKey]);
 
   const handleSort = (key: keyof Brewery) => {
     if (sortKey === key) {
-      setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+      setSortKey(null); 
     } else {
       setSortKey(key);
-      setSortOrder('asc');
     }
   };
 
@@ -61,7 +57,6 @@ const useBreweryTableState = (searchParams: URLSearchParams = new URLSearchParam
     page,
     setPage,
     sortKey,
-    sortOrder,
     handleSort,
     syncStateWithQueryParams,
   };
