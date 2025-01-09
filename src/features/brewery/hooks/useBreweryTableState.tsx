@@ -7,8 +7,6 @@ const useBreweryTableState = (searchParams: URLSearchParams = new URLSearchParam
   const [filters, setFilters] = useState<{
     types: string[];
     search: string;
-    minLatitude?: number;
-    maxLatitude?: number;
   }>({
     types: [],
     search: '',

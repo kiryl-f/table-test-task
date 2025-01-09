@@ -5,19 +5,23 @@ import { Brewery } from '../types';
 const useBreweryLoader = (page: number, filters: any, sortKey: keyof Brewery | null) => {
   const [data, setData] = useState<Brewery[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const loadBreweries = async () => {
     setLoading(true);
+    setError(null);
     try {
-      let breweries = await fetchBreweries(page, 50, filters, sortKey);
+      const breweries = await fetchBreweries(page, 50, filters, sortKey);
       setData(breweries);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      setError('Failed to fetch breweries. Please try again.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
-  return { data, loading, loadBreweries };
+  return { data, loading, error, loadBreweries };
 };
 
 export default useBreweryLoader;

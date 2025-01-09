@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styles from './BreweryTable.module.scss';
 
-// import LatitudeFilter from './filters/LatitudeFilter';
-
 import { Table } from '../../../../shared/ui/Table/Table';
 import { Filters } from '../Filters';
 import { Pagination } from '../Pagination/Pagination';

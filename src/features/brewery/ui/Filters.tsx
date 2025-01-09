@@ -15,8 +15,8 @@ type FiltersProps = {
     React.SetStateAction<{
       types: string[];
       search: string;
-      minLatitude?: number;
-      maxLatitude?: number;
+      // minLatitude?: number;
+      // maxLatitude?: number;
     }>
   >;
   setPage: React.Dispatch<React.SetStateAction<number>>;
