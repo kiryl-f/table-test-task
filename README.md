@@ -2,10 +2,13 @@
 
 A React + TypeScript project for displaying and filtering brewery data from the Open Brewery DB API.
 
+https://www.openbrewerydb.org/documentation
+
+
 ### Installation
 1. Clone the repository:
    git clone https://github.com/kiryl-f/table-test-task.git
-   cd your-repository
+   cd table-test-task
 
 2. Install dependencies:
    npm install
