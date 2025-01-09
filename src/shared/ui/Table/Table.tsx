@@ -7,6 +7,7 @@ type TableProps<T> = {
 };
 
 export const Table = <T,>({ data, columns, onSort }: TableProps<T>) => {
+  
   return (
     <table className={styles.table}>
       <thead>

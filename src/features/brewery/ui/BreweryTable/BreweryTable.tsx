@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styles from './BreweryTable.module.scss';
+import RenderCounter from './RenderCounter'; // Import the render counter
 
 import { Table } from '../../../../shared/ui/Table/Table';
 import { Filters } from '../Filters';
@@ -27,31 +28,19 @@ const BreweryTable: React.FC = () => {
     loadBreweries();
   }, [page, filters, sortKey]);
 
-  // const handleLatitudeFilter = (minLatitude: number | null, maxLatitude: number | null) => {
-  //   setFilters((prev) => ({
-  //     ...prev,
-  //     minLatitude: minLatitude ?? undefined,
-  //     maxLatitude: maxLatitude ?? undefined,
-  //   }));
-  //   setPage(1);
-  // };
-
-  const columns: { key: keyof Brewery; title: string; sortable?: boolean; onSort?: () => void }[] = [
-    { key: 'name', title: 'Name', sortable: true, onSort: () => handleSort('name') },
-    { key: 'brewery_type', title: 'Type', sortable: true, onSort: () => handleSort('brewery_type') },
-    { key: 'city', title: 'City' },
-    { key: 'state', title: 'State' },
-  ];
-  
+  const columns = useMemo(() => {
+    return [
+      { key: 'name' as keyof Brewery, title: 'Name', sortable: true, onSort: () => handleSort('name') },
+      { key: 'brewery_type' as keyof Brewery, title: 'Type', sortable: true, onSort: () => handleSort('brewery_type') },
+      { key: 'city' as keyof Brewery, title: 'City' },
+      { key: 'state' as keyof Brewery, title: 'State' },
+    ];
+  }, [handleSort]);
 
   return (
     <div className={styles.tableContainer}>
+      <RenderCounter /> {/* Add the RenderCounter here */}
       <Filters filters={filters} setFilters={setFilters} setPage={setPage} />
-
-      {/* <div className={styles.locationFilters}>
-        <LatitudeFilter onApplyFilter={handleLatitudeFilter} />
-      </div> */}
-
       {loading ? (
         <p className={styles.loading}>Loading...</p>
       ) : (

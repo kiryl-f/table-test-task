@@ -44,7 +44,7 @@ export const fetchBreweries = async (
     }
 
     const response = await fetch(`https://api.openbrewerydb.org/v1/breweries?${params.toString()}`);
-    console.log('fetching: ' + `https://api.openbrewerydb.org/v1/breweries?${params.toString()}`);
+    //console.log('fetching: ' + `https://api.openbrewerydb.org/v1/breweries?${params.toString()}`);
     if (!response.ok) {
       throw new Error('Failed to fetch breweries');
     }
