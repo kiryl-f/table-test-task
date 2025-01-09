@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styles from './BreweryTable.module.scss';
-import RenderCounter from './RenderCounter'; // Import the render counter
+// import RenderCounter from './RenderCounter'; 
 
 import { Table } from '../../../../shared/ui/Table/Table';
 import { Filters } from '../Filters';
