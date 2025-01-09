@@ -9,6 +9,7 @@ import { Pagination } from '../Pagination/Pagination';
 import { Brewery } from '../../types';
 import useBreweryTableState from '../../hooks/useBreweryTableState';
 import useBreweryLoader from '../../hooks/useBreweryLoader';
+import ResetFiltersButton from '../Filters/ResetFilters/ResetFiltersButton';
 
 const BreweryTable: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -20,6 +21,7 @@ const BreweryTable: React.FC = () => {
     setPage,
     sortKey,
     handleSort,
+    resetFilters
   } = useBreweryTableState(searchParams);
 
   const { data, loading, loadBreweries } = useBreweryLoader(page, filters, sortKey);
@@ -43,6 +45,8 @@ const BreweryTable: React.FC = () => {
   return (
     <div className={styles.tableContainer}>
       {/* <RenderCounter /> */}
+      <ResetFiltersButton resetFilters={resetFilters} />
+      
       <Filters filters={filters} setFilters={setFilters} setPage={setPage} />
       {loading ? (
         <p className={styles.loading}>Loading...</p>

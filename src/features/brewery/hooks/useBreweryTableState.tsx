@@ -14,6 +14,16 @@ const useBreweryTableState = (searchParams: URLSearchParams = new URLSearchParam
   const [page, setPage] = useState(1);
   const [sortKey, setSortKey] = useState<keyof Brewery | null>(null);
 
+  const initialFilters = {
+    search: '',
+    types: []
+  };
+
+  const resetFilters = () => {
+    setFilters(initialFilters); 
+    setPage(1);
+  };
+
   useEffect(() => {
     const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (savedState) {
@@ -57,6 +67,7 @@ const useBreweryTableState = (searchParams: URLSearchParams = new URLSearchParam
     sortKey,
     handleSort,
     syncStateWithQueryParams,
+    resetFilters
   };
 };
 
