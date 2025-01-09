@@ -7,6 +7,8 @@ https://www.openbrewerydb.org/documentation
 
 ### Installation
 1. Clone the repository:
+
+   
    git clone https://github.com/kiryl-f/table-test-task.git
    
    cd table-test-task
