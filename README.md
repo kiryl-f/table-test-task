@@ -8,9 +8,10 @@ https://www.openbrewerydb.org/documentation
 ### Installation
 1. Clone the repository:
    git clone https://github.com/kiryl-f/table-test-task.git
+   
    cd table-test-task
 
-2. Install dependencies:
+3. Install dependencies:
    npm install
 
 ### Running the Project
