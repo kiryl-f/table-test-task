@@ -5,17 +5,21 @@ type ResetFiltersButtonProps = {
 };
 
 const ResetFiltersButton: React.FC<ResetFiltersButtonProps> = ({ resetFilters }) => {
-  const buttonStyle = {
+  const buttonStyle: React.CSSProperties = {
+    position: 'sticky',
+    top: 10,
     padding: '10px 20px',
     backgroundColor: '#f44336',
     color: '#fff',
+    marginLeft: '20px',
+    marginBottom: '36px',
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
     fontSize: '16px',
   };
 
-  const buttonHoverStyle = {
+  const buttonHoverStyle: React.CSSProperties = {
     ...buttonStyle,
     backgroundColor: '#e53935',
   };
