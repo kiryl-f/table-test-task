@@ -18,7 +18,7 @@ export const SearchFilter: React.FC<SearchFilterProps> = React.memo(({ search, s
       <h3>Search</h3>
       <input
         type="text"
-        placeholder="Search by name or city"
+        placeholder="Search breweries by name"
         value={search}
         onChange={handleSearchChange}
       />
