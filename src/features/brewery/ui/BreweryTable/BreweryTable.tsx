@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styles from './BreweryTable.module.scss';
-import RenderCounter from './RenderCounter'; 
+// import RenderCounter from './RenderCounter'; 
 
 import { Table } from '../../../../shared/ui/Table/Table';
 import { Filters } from '../Filters';
@@ -42,7 +42,7 @@ const BreweryTable: React.FC = () => {
 
   return (
     <div className={styles.tableContainer}>
-      <RenderCounter />
+      {/* <RenderCounter /> */}
       <Filters filters={filters} setFilters={setFilters} setPage={setPage} />
       {loading ? (
         <p className={styles.loading}>Loading...</p>
