@@ -8,7 +8,7 @@ type PaginationProps = {
   perPage: number;
 };
 
-export const Pagination: React.FC<PaginationProps> = ({ page, setPage, dataLength, perPage }) => {
+export const Pagination: React.FC<PaginationProps> = React.memo(({ page, setPage, dataLength, perPage }) => {
   return (
     <div className={styles.pagination}>
       <button
@@ -26,4 +26,4 @@ export const Pagination: React.FC<PaginationProps> = ({ page, setPage, dataLengt
       </button>
     </div>
   );
-};
+});

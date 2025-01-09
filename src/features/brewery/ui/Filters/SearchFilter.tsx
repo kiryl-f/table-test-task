@@ -7,7 +7,7 @@ type SearchFilterProps = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const SearchFilter: React.FC<SearchFilterProps> = ({ search, setSearch, setPage }) => {
+export const SearchFilter: React.FC<SearchFilterProps> = React.memo(({ search, setSearch, setPage }) => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     setPage(1);
@@ -24,4 +24,4 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({ search, setSearch, s
       />
     </div>
   );
-};
+});

@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styles from './BreweryTable.module.scss';
-// import RenderCounter from './RenderCounter'; 
+import RenderCounter from './RenderCounter'; 
 
 import { Table } from '../../../../shared/ui/Table/Table';
 import { Filters } from '../Filters';
@@ -28,18 +28,21 @@ const BreweryTable: React.FC = () => {
     loadBreweries();
   }, [page, filters, sortKey]);
 
+  const memoizedHandleSort = useCallback((key: keyof Brewery) => handleSort(key), [handleSort]);
+
   const columns = useMemo(() => {
     return [
-      { key: 'name' as keyof Brewery, title: 'Name', sortable: true, onSort: () => handleSort('name') },
-      { key: 'brewery_type' as keyof Brewery, title: 'Type', sortable: true, onSort: () => handleSort('brewery_type') },
+      { key: 'name' as keyof Brewery, title: 'Name', sortable: true, onSort: () => memoizedHandleSort('name') },
+      { key: 'brewery_type' as keyof Brewery, title: 'Type', sortable: true, onSort: () => memoizedHandleSort('brewery_type') },
       { key: 'city' as keyof Brewery, title: 'City' },
       { key: 'state' as keyof Brewery, title: 'State' },
     ];
-  }, [handleSort]);
+  }, [memoizedHandleSort]);
+
 
   return (
     <div className={styles.tableContainer}>
-      {/* <RenderCounter /> */}
+      <RenderCounter />
       <Filters filters={filters} setFilters={setFilters} setPage={setPage} />
       {loading ? (
         <p className={styles.loading}>Loading...</p>
