@@ -39,7 +39,7 @@ const BreweryTable: React.FC = () => {
 
   return (
     <div className={styles.tableContainer}>
-      <RenderCounter /> {/* Add the RenderCounter here */}
+      {/* <RenderCounter /> */}
       <Filters filters={filters} setFilters={setFilters} setPage={setPage} />
       {loading ? (
         <p className={styles.loading}>Loading...</p>
